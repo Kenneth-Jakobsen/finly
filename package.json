@@ -1,0 +1,33 @@
+{
+  "name": "finly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "concurrently \"npm run tailwind:dev\" \"nodemon index.js\"",
+    "tailwind:dev": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "tailwind:build": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --minify"
+  },
+  "author": "Ken",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.7",
+    "autoprefixer": "^10.4.21",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "daisyui": "^5.0.35"
+  }
+}
