@@ -1,11 +1,11 @@
 const User= require('../lib/models/user.model');
 
+
 const createUser = async (req, res) => {
     await User.create({
         email:'kenneth@mail.com',
         password:'password'
     });
-
     res.render('user',{message:'User created successfully', user:null})
 };
 
@@ -24,6 +24,9 @@ const deleteUser = async (req, res) => {
         user:user
     });
 }
+
+
+
 
 module.exports = {
     createUser,
