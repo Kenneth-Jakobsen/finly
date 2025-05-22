@@ -5,6 +5,7 @@ require('./lib/dbConnect');
 const app = express();
 app.use(morgan('dev'));
 const PORT = 3000;
+const userRoute = require('./routes/user.route')
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -24,6 +25,8 @@ res.render('index', { message: 'The Contact Page' });
 app.get('/about', (req, res) => {
 res.render('index', { message: 'The About Page' });
 });
+
+app.use('/users', userRoute);
 
 
 
