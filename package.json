@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js\"",
+    "dev": "concurrently \"npm:server\" \"npm:tailwind:dev\"",
+    "server": "nodemon index.js",
     "tailwind:dev": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
     "tailwind:build": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --minify"
   },
@@ -16,10 +17,12 @@
     "@tailwindcss/cli": "^4.1.7",
     "autoprefixer": "^10.4.21",
     "bcrypt": "^6.0.0",
+    "connect-flash": "^0.1.1",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
     "mongodb": "^6.16.0",
     "mongoose": "^8.15.0",
     "morgan": "^1.10.0",

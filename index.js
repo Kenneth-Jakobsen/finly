@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
+const flash = require('connect-flash');
 const app = express();
 const PORT = 3000;
 const userRoute = require('./routes/user.route')
@@ -13,6 +14,7 @@ app.use(morgan('dev'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.static('public'));
+app.use(flash());
 app.use(express.urlencoded({extended:false}))
 app.use(
   session({
