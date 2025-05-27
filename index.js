@@ -13,7 +13,7 @@ require('./lib/dbConnect');
 app.use(morgan('dev'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
-app.use(express.static('public'));
+app.use(express.static('./public'));
 app.use(flash());
 app.use(express.urlencoded({extended:false}))
 app.use(
@@ -25,12 +25,14 @@ app.use(
 );
 
 app.use('/', userRoute);
-app.use((req,res)=>{
-  res.status(404).render('index',{message:'Not Found'})
-})
-
 app.use('/dashboard',dashboardRouter);
 
+
+
+
+app.use((req,res)=>{
+  res.status(404).render('404',{title:'Not Found',message:'No such page'})
+})
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
