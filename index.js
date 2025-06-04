@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const morgan = require('morgan');
 const flash = require('connect-flash');
+const {verifyUser} = require('./libs/middleware')
 const app = express();
 const PORT = 3000;
 
@@ -9,7 +10,7 @@ const userRoute = require('./routes/user.route')
 const dashboardRouter = require('./routes/dashboard.route')
 
 require('dotenv').config();
-require('./lib/dbConnect');
+require('./libs/dbConnect');
 
 app.use(morgan('dev'));
 app.set('view engine', 'ejs');
@@ -28,8 +29,7 @@ app.use(
 app.use(flash());
 
 app.use('/', userRoute);
-app.use('/dashboard',dashboardRouter);
-
+app.use('/dashboard',verifyUser, dashboardRouter);
 
 
 
