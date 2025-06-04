@@ -10,7 +10,7 @@ const {
     logout
 } = require('../controllers/user.controller');
 
-router.get('/', redirectAuthenticated, (req, res) => {
+router.get('/',redirectAuthenticated, (req, res) => {
     res.render('pages/index', { title: 'Finly', info:req.flash('info')[0] });
 });
 router.get('/login', redirectAuthenticated, (req, res) => {
