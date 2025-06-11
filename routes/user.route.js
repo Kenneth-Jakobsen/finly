@@ -26,4 +26,5 @@ router.get('/signup', redirectAuthenticated, (req, res) => {
 });
 
 router.post('/signup', validateSignup, signup)
+
 module.exports = router;
