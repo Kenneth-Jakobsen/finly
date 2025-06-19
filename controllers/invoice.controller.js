@@ -1,8 +1,7 @@
 const Customer = require('../libs/models/customer.model');
 const Invoice = require('../libs/models/invoice.model');
 
-const {body, validationResults, query} = require('express-validator');
-const { populate } = require('../libs/models/user.model');
+const {body, validationResults} = require('express-validator');
 
 const validateInvoice = [
     body('customer', 'Select the Customer').notEmpty(),
@@ -12,7 +11,7 @@ const validateInvoice = [
 ];
 
 populateInvoices = query =>{
-    return query.populate({path:'customer', model:Customer, seles:'_id name'});
+    return query.populate({path:'customer', model:Customer, select:'_id name'});
 };
 
 const showInvoices = async(req,res) =>{
@@ -25,4 +24,36 @@ const showInvoices = async(req,res) =>{
         invoices,
         info:req.flash('info')[0],
     });
+};
+
+const createInvoice = async(req,res) =>{
+    const validationErrors = validationResults(req);
+    if(!validationErrors.isEmpty()){
+        const errors = validationErrors.array();
+        req.flash('errors', errors);
+        req.flash('data', req.body);
+        return res.redirect('create');
+    }
+
+    const newInvoice = req.body;
+    newInvoice.owner = req.session.userId;
+    await Invoice.create(newInvoice);
+    req.flash('info',{
+        message:'New Invoice Created',
+        type:'Success'
+    });
+};
+
+const getCustomers = async(req,res,next) =>{
+    const customerQuery = {owner:req.session.userId};
+    const customers = await Customer.find(customerQuery);
+    req.customers = customers;
+    next();
+}
+
+module.exports = {
+    showInvoices,
+    createInvoice,
+    getCustomers,
+    validateInvoice,
 };
