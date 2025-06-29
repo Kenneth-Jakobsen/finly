@@ -5,7 +5,10 @@ const {
     showInvoices,
     getCustomers,
     createInvoice,
-    validateInvoice
+    editInvoice,
+    updateInvoice,
+    validateInvoice,
+    deleteInvoice,
 } = require('../controllers/invoice.controller');
 
 router.get('/', showInvoices);
@@ -23,5 +26,8 @@ router.get('/create', getCustomers, (req,res) =>{
 });
 
 router.post('/create', validateInvoice, createInvoice);
+router.get('/:id/edit', getCustomers,editInvoice);
+router.post('/:id/edit', validateInvoice, updateInvoice);
+router.post('/:id/delete', deleteInvoice);
 
 module.exports = router;

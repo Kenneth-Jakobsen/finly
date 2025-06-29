@@ -29,14 +29,14 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-black">
                 <% invoices.forEach(function(invoice){ %>
                     <tr>
                         <td>
                             <%= invoice.customer.name %>
                         </td>
                         <td>
-                            <%= invoice.amount %>
+                            <%= EUR.format(invoice.amount) %>
                         </td>
                         <td>
                             <%= new Date(invoice.date).toLocaleDateString('en-US') %>
@@ -54,11 +54,11 @@
                         </td>
                         <td>
                             <div class="flex justify-end gap-3">
-                                <a class="rounded-md border p-2 hover:bg-gray-100"
+                                <a class="rounded-md border p-2 text-emerald-500 hover:bg-gray-300"
                                     href="invoices/<%= invoice._id %>/edit">
                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                 </a>
-                                <button class="rounded-md border p-2 hover:bg-gray-100"
+                                <button class="rounded-md border p-2 text-red-500 hover:bg-gray-300 cursor-pointer "
                                     onclick="deleteModal('<%= invoice._id %>')">
                                     <span class="sr-only">Delete</span><i class="fa-solid fa-trash fa-lg"></i>
                                 </button>

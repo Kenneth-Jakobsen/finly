@@ -38,8 +38,8 @@
           <td class="text-black"> <%= customer.phone %> </td>
           <td>
             <div class="flex justify-end gap-3">
-              <a  class="rounded-md border p-2 text-green-500 hover:bg-gray-100" href="customers/<%= customer._id %>/edit"><i class="fa-solid fa-pen-to-square fa-lg"></i></a>
-              <button class="rounded-md border p-2 text-red-500 hover:bg-gray-100" onclick="deleteModal('<%= customer._id %>')"><span class="sr-only">Delete</span><i class="fa-solid fa-trash fa-lg"></i></button>
+              <a  class="rounded-md border p-2 text-green-500 hover:bg-gray-300" href="customers/<%= customer._id %>/edit"><i class="fa-solid fa-pen-to-square fa-lg"></i></a>
+              <button class="rounded-md border p-2 text-red-500 hover:bg-gray-300 cursor-pointer" onclick="deleteModal('<%= customer._id %>')"><span class="sr-only">Delete</span><i class="fa-solid fa-trash fa-lg"></i></button>
             </div>
           </td>
         </tr>
