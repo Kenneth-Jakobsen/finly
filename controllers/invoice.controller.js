@@ -3,7 +3,7 @@ const Invoice = require('../libs/models/invoice.model');
 
 const { body, validationResult } = require('express-validator');
 const { populate } = require('../libs/models/user.model');
-const { EUR } = require('../libs/formatter'); 
+const { EUR } = require('../libs/formatter');
 
 const validateInvoice = [
     body('customer', 'Select the Customer').notEmpty(),
@@ -12,13 +12,25 @@ const validateInvoice = [
     body('status', 'Select the Status').notEmpty(),
 ];
 
-const populateInvoices = query => {
-    return query.populate({ path: 'customer', model: Customer, select: '_id name' });
+const populateInvoices = (query, search) => {
+const populateOptions = {
+        path: 'customer',
+        model: Customer,
+        select: '_id name',
+};
+
+if (search) {populateOptions.match = { name: { $regex: search, $options: 'i' } };}
+
+return query.populate(populateOptions).then(invoices => invoices.filter(invoice => invoice.customer != null));
+
 };
 
 const showInvoices = async (req, res) => {
     const query = { owner: req.session.userId };
-    const invoices = await populateInvoices(Invoice.find(query));
+    const { search } = req.query;
+
+    const invoices = await populateInvoices(Invoice.find(query), search);
+
     res.render('pages/invoices', {
         title: 'Invoices',
         type: 'data',
@@ -26,7 +38,6 @@ const showInvoices = async (req, res) => {
         EUR,
         info: req.flash('info')[0],
     });
-    console.log(invoices)
 };
 
 

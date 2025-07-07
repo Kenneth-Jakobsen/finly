@@ -16,6 +16,26 @@ const showDashboard = async(req,res)=>{
         select:'_id name',          
     });
 
+    allInvoices.sort((a,b) => new Date(b.date) - new Date(a.date));
+    const latestInvoices = allInvoices.slice(0, 5);
+
+     const revenueData = [];
+        for(let i=0; i<6; i++){
+            const today = new Date();
+            today.setMonth(today.getMonth()-i);
+            const firstDay = new Date(today.getFullYear(), today.getMonth(),1);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() +1, 0);
+            const month = today.toLocaleString('default', {month:'short'});
+    
+            const revenueMonth = allInvoices.filter(invoice =>{
+                return(
+                    new Date(invoice.date) >= firstDay && new Date(invoice.date) <= lastDay
+                );
+            }).reduce((total, invoice) => total + invoice.amount, 0);
+
+            revenueData.unshift({month, revenue:revenueMonth});
+        }
+
     const totalPaid = allInvoices.reduce((sum, invoice)=>{
         return invoice.status === 'paid' ? sum + invoice.amount : sum;
     },0);
@@ -33,6 +53,8 @@ const showDashboard = async(req,res)=>{
         totalPaid,
         totalPending,
         EUR,
+        latestInvoices,
+        revenueData:JSON.stringify(revenueData),
         info:req.flash('info')[0],
     });
 };
