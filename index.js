@@ -34,7 +34,7 @@ app.use('/dashboard',verifyUser, dashboardRouter);
 
 
 app.use((req,res)=>{
-  res.status(404).render('404',{title:'Not Found',message:'No such page'})
+  res.status(404).render('./pages/index',{title:'Not Found',message:'No such page'})
 })
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

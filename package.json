@@ -7,6 +7,8 @@
     "start": "node index.js",
     "dev": "concurrently \"npm:server\" \"npm:tailwind:dev\"",
     "server": "nodemon index.js",
+    "css": "postcss public/styles/tailwind.css -o public/styles/style.css",
+    "devcss": "postcss public/styles/tailwind.css -o public/styles/style.css -w",
     "tailwind:dev": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
     "tailwind:build": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --minify"
   },
