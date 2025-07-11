@@ -13,15 +13,15 @@ const validateInvoice = [
 ];
 
 const populateInvoices = (query, search) => {
-const populateOptions = {
+    const populateOptions = {
         path: 'customer',
         model: Customer,
         select: '_id name',
-};
+    };
 
-if (search) {populateOptions.match = { name: { $regex: search, $options: 'i' } };}
+    if (search) { populateOptions.match = { name: { $regex: search, $options: 'i' } }; }
 
-return query.populate(populateOptions).then(invoices => invoices.filter(invoice => invoice.customer != null));
+    return query.populate(populateOptions).then(invoices => invoices.filter(invoice => invoice.customer != null));
 
 };
 
@@ -71,7 +71,7 @@ const getCustomers = async (req, res, next) => {
 
 const editInvoice = async (req, res) => {
     const invoiceId = req.params.id;
-    const invoice = await populateInvoices(Invoice.findById(invoiceId));
+    const invoice = (await populateInvoices(Invoice.find({ _id: invoiceId })))[0];
     const { customers } = req;
 
     res.render('pages/invoices', {
@@ -82,7 +82,8 @@ const editInvoice = async (req, res) => {
         invoice: req.flash('data')[0] || invoice,
         errors: req.flash('errors'),
     });
-}
+};
+
 
 const updateInvoice = async (req, res) => {
     const validationErrors = validationResult(req);
