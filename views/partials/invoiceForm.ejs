@@ -27,7 +27,8 @@
                 <div class="form-control w-full gap-2"><span class="label-text text-black">Due Date</span>
                     <label for="date" class="input input-bordered flex items-center gap-2">
                         <i class="fa-regular fa-calendar"></i>
-                        <input id="date" name="date" type="text" class="grow" placeholder="4/5/2024" value="<%=invoice?.date? new Date(invoice.date).toLocaleDateString('en-US') : '' %>" />
+                        <input id="date" name="date" type="text" class="grow" placeholder="4/5/2024"
+                            value="<%=invoice?.date? new Date(invoice.date).toLocaleDateString('en-US') : '' %>" />
                     </label>
                 </div>
                 <div class="form-control w-full gap-2"><span class="label-text text-black">Status</span>
