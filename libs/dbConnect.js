@@ -10,6 +10,11 @@ mongoose.connect(MONGODB_URI, {
   dbName: 'finly-db',
   bufferCommands: false,
 })
-
-console.log('MongoDB connected');
+  .then(() => {
+    console.log('MongoDB connected');
+  })
+  .catch((err) => {
+    console.error('MongoDB connection failed:', err.message);
+    process.exit(1);
+  });
  
